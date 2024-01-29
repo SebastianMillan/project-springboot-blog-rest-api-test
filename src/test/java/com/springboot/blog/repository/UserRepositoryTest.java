@@ -95,12 +95,13 @@ class UserRepositoryTest {
     //Alejandro Rubens
     @Test
     void existsByEmailTrueStatement() {
+        System.out.println(userRepository.findAll());
         Assertions.assertThat(dataSource).isNotNull();
         Assertions.assertThat(jdbcTemplate).isNotNull();
         Assertions.assertThat(entityManager).isNotNull();
         Assertions.assertThat(userRepository).isNotNull();
 
-        boolean resultTrue = userRepository.existsByEmail("alejandro@gmail.com");
+        boolean resultTrue = userRepository.existsByEmail("fyuryev1@senate.gov");
 
         Assertions.assertThat(resultTrue).isNotNull();
         Assertions.assertThat(resultTrue).isTrue();

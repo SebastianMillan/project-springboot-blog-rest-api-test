@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-<<<<<<< HEAD
-  <component name="JpaBuddyIdeaProjectConfig" ddlActionDbType="mysql">
-=======
-  <component name="JpaBuddyIdeaProjectConfig" ddlActionDbType="postgres">
->>>>>>> f8b2bc1cda491c16bae7a7df143f59fc92aaf146
-    <option name="defaultUnitInitialized" value="true" />
+  <component name="JpaBuddyIdeaProjectConfig">
     <option name="renamerInitialized" value="true" />
   </component>
 </project>
