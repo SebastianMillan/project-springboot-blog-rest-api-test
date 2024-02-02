@@ -1,0 +1,17 @@
+com\springboot\blog\controller\CategoryControllerIntegrationTest.class
+com\springboot\blog\repository\PostRepositoryTest.class
+com\springboot\blog\controller\AuthControllerTest.class
+com\springboot\blog\service\impl\AuthServiceImplTest.class
+com\springboot\blog\SpringbootBlogRestApiApplicationTests.class
+com\springboot\blog\repository\UserRepositoryTest.class
+com\springboot\blog\controller\CommentControllerTest.class
+com\springboot\blog\repository\CommentRepositoryTest.class
+com\springboot\blog\controller\CategoryControllerTest.class
+com\springboot\blog\service\impl\CommentServiceImplTest.class
+com\springboot\blog\repository\RoleRepositoryTest.class
+com\springboot\blog\controller\PostControllerIntegrationTest.class
+com\springboot\blog\service\impl\PostServiceImplTest.class
+com\springboot\blog\controller\CommentControllerIntegrationTest.class
+com\springboot\blog\controller\PostControllerTest.class
+com\springboot\blog\controller\AuthControllerIntegrationTest.class
+com\springboot\blog\service\impl\CategoryServiceImplTest.class

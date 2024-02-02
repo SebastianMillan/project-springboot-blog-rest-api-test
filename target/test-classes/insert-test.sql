@@ -1,16 +1,7 @@
-<<<<<<< HEAD
-INSERT INTO users (id, username, email, password) VALUES (1, 'manolo', 'manolo@user.com', '1234');
-INSERT INTO users (id, username, email, password) VALUES (2, 'vicente', 'vicente@user.com', '1234');
-INSERT INTO users (id, username, email, password) VALUES (3, 'fran', 'fran@user.com', '1234');
-
 INSERT INTO categories (id, name, description) VALUES (1, 'asd1', 'asdasd');
 INSERT INTO categories (id, name, description) VALUES (2, 'asd2', 'asdasd');
 
-INSERT INTO posts (id, title, description, content, category_id) VALUES (1, 'example1', 'this is the description of example1', 'this is the content of example1', 1);
-INSERT INTO posts (id, title, description, content) VALUES (2, 'example2', 'this is the description of example2', 'this is the content of example2');
-INSERT INTO posts (id, title, description, content) VALUES (3, 'example3', 'this is the description of example3', 'this is the content of example3');
-=======
-INSERT INTO posts (id, title, description, content) VALUES (1, 'Mi mejor verano', 'El año pasado fui a Marruecos a hacer turismo', 'Mucho texto y muchas imagenes');
+INSERT INTO posts (id, title, description, content, category_id) VALUES (1, 'Mi mejor verano', 'El año pasado fui a Marruecos a hacer turismo', 'Mucho texto y muchas imagenes', 1);
 INSERT INTO posts (id, title, description, content) VALUES (2, 'Receta Arroz', 'Tutorial avanzado para hacer arroz', 'Ingredientes y preparación');
 INSERT INTO posts (id, title, description, content) VALUES (3, 'Ejercicio gimnasio', 'Rutina de musculatura para gimnasio', 'Tablas y tiempos para hacer en el gimnasio');
 
@@ -35,4 +26,3 @@ INSERT INTO users_roles (role_id, user_id) VALUES (1, 3);
 INSERT INTO users_roles (role_id, user_id) VALUES (2, 4);
 INSERT INTO users_roles (role_id, user_id) VALUES (2, 5);
 INSERT INTO users_roles (role_id, user_id) VALUES (2, 6);
->>>>>>> f8b2bc1cda491c16bae7a7df143f59fc92aaf146

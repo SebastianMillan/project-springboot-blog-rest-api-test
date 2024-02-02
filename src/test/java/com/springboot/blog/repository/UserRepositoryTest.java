@@ -3,6 +3,7 @@ package com.springboot.blog.repository;
 import jakarta.persistence.EntityManager;
 import org.assertj.core.api.Assertions;
 import com.springboot.blog.entity.User;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -17,6 +18,8 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 import javax.sql.DataSource;
 import java.util.Optional;
+import java.util.List;
+
 
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -45,8 +48,14 @@ class UserRepositoryTest {
             .withPassword("testSecret")
             .withDatabaseName("testDatabase");
 
+    //Cristian Pulido
     @Test
     void findByEmail() {
+        Optional<User> encontradofalse = userRepository.findByEmail("oliva0@europa.eu");
+        Optional<User> encontradotrue = userRepository.findByEmail("loliva0@europa.eu");
+
+        assertTrue(encontradofalse.isEmpty(),"No se ha encontrado");
+        assertTrue(encontradotrue.isPresent(),"Se ha encontrado");
     }
 
     //Sebastián Millán
@@ -67,7 +76,6 @@ class UserRepositoryTest {
         assertEquals("Faunie", user.get().getName());
     }
 
-    //Marco Pertegal
     @Test
     void WhenNonExistingUserNameThenReturnEmpty() {
         String username = "a";
@@ -76,7 +84,6 @@ class UserRepositoryTest {
         assertTrue(user.isEmpty());
     }
 
-    //Marco Pertegal
     @Test
     void WhenExistingUserNameThenReturnTrue() {
         String username = "fspincke1";

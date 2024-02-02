@@ -38,7 +38,7 @@ class CommentRepositoryTest {
 
     //Sebastián Millán
     @Test
-    void findByPostId() {
+    void whenPostIdIsPresent_thenCommentListIsPresent() {
         List<Comment> result = commentRepository.findByPostId(1L);
         assertFalse(result.isEmpty());
         assertEquals(result.size(), 3);
