@@ -10,6 +10,7 @@ class AuthControllerIntegrationTest {
     void login() {
     }
 
+    //Alejandro Rubens
     @Test
     void register() {
     }

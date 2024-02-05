@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PostControllerIntegrationTest {
 
+    //Alejandro Rubens
     @Test
     void createPost() {
     }
@@ -22,6 +23,7 @@ class PostControllerIntegrationTest {
     void updatePost() {
     }
 
+    //Alejandro Rubens
     @Test
     void deletePost() {
     }
