@@ -1,4 +1,15 @@
 -------------------------------------------------------------------------------
 Test set: com.springboot.blog.controller.CategoryControllerTest
 -------------------------------------------------------------------------------
-Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.014 s -- in com.springboot.blog.controller.CategoryControllerTest
+Tests run: 8, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 5.449 s <<< FAILURE! -- in com.springboot.blog.controller.CategoryControllerTest
+com.springboot.blog.controller.CategoryControllerTest.whenNewCategoryIsValidAndUserRole_thenReturnHttp403 -- Time elapsed: 0.060 s <<< FAILURE!
+java.lang.AssertionError: Status expected:<403> but was:<201>
+	at org.springframework.test.util.AssertionErrors.fail(AssertionErrors.java:59)
+	at org.springframework.test.util.AssertionErrors.assertEquals(AssertionErrors.java:122)
+	at org.springframework.test.web.servlet.result.StatusResultMatchers.lambda$matcher$9(StatusResultMatchers.java:637)
+	at org.springframework.test.web.servlet.MockMvc$1.andExpect(MockMvc.java:214)
+	at com.springboot.blog.controller.CategoryControllerTest.whenNewCategoryIsValidAndUserRole_thenReturnHttp403(CategoryControllerTest.java:88)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+
