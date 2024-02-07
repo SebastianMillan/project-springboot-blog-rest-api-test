@@ -195,6 +195,7 @@ class CommentControllerTest {
                 .andExpect(status().isUnauthorized());
     }
 
+    //Alejandro Rubens
     @Test
     @WithMockUser(roles = {"ADMIN"})
     void deleteComment_expectedResponse200ButNonExistingComment() throws Exception{
@@ -203,6 +204,11 @@ class CommentControllerTest {
                 .andExpect(status().isOk());
     }
 
+    @Test
+    void updateComment() {
+    }
+
+    //Alejandro Rubens
     @Test
     @WithMockUser(roles = {"ADMIN"})
     void deleteComment_expectedResponse400() throws Exception{

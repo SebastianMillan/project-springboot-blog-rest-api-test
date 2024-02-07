@@ -77,6 +77,7 @@ class CategoryControllerTest {
 
     }
 
+    //Alejandro Rubens
     @Test
     @WithMockUser()
     void whenNewCategoryIsValidAndUserRole_thenReturnHttp401() throws Exception{

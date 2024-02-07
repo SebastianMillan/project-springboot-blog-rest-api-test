@@ -31,9 +31,54 @@ class CategoryServiceImplTest {
     @Mock
     ModelMapper modelMapper;
 
+    //Alejandro Rubens
     @Test
-    void addCategory() {
+    void addCategory_whenCategoryGoesAsSpected() {
+        CategoryDto categoryDto = new CategoryDto(1L, "nombre", "descripcion de la categoría");
+        CategoryDto expectedResult = new CategoryDto(1L, "nombre", "descripcion de la categoría");
+
+        when(categoryService.addCategory(categoryDto)).thenReturn(categoryDto);
+
+        CategoryDto result = categoryService.addCategory(categoryDto);
+
+        assertNotNull(result);
+        assertEquals(result.getId(), expectedResult.getId());
+        assertEquals(result.getName(), expectedResult.getName());
+        assertEquals(result.getDescription(), expectedResult.getDescription());
     }
+
+    //Alejandro Rubens
+    @Test
+    void addCategory_whenTheDtoIsEmpty() {
+        CategoryDto categoryDto = new CategoryDto();
+        CategoryDto expectedResult = new CategoryDto(1L, "nombre", "descripcion de la categoría");
+
+        when(categoryService.addCategory(categoryDto)).thenReturn(categoryDto);
+
+        CategoryDto result = categoryService.addCategory(categoryDto);
+
+        assertNotNull(result);
+        assertNotEquals(result.getId(), expectedResult.getId());
+        assertNotEquals(result.getName(), expectedResult.getName());
+        assertNotEquals(result.getDescription(), expectedResult.getDescription());
+    }
+
+    //Alejandro Rubens
+    @Test
+    void addCategory_whenTheDtoIsDiferentToTheSpectedResult() {
+        CategoryDto categoryDto = new CategoryDto(2L, "nombreDiferente", "descripcion de la categoría diferente");
+        CategoryDto expectedResult = new CategoryDto(1L, "nombre", "descripcion de la categoría");
+
+        when(categoryService.addCategory(categoryDto)).thenReturn(categoryDto);
+
+        CategoryDto result = categoryService.addCategory(categoryDto);
+
+        assertNotNull(result);
+        assertNotEquals(result.getId(), expectedResult.getId());
+        assertNotEquals(result.getName(), expectedResult.getName());
+        assertNotEquals(result.getDescription(), expectedResult.getDescription());
+    }
+
 
     @Test
     void getCategory() {

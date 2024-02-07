@@ -63,7 +63,6 @@ class AuthControllerIntegrationTest {
         adminHeaders.setBearerAuth(token);
     }
 
-
     //Sebastián Millán
     @Test
     void whenLoginDtoIsOk_thenReturnHttp200() {
@@ -82,7 +81,6 @@ class AuthControllerIntegrationTest {
         System.out.println(response);
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     }
-
     //Alejandro Rubens
     @Test
     void register() {
