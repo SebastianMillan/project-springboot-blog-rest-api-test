@@ -86,7 +86,7 @@ class CategoryControllerIntegrationTest {
         adminHeaders.setContentType(MediaType.APPLICATION_JSON);
         adminHeaders.setBearerAuth(adminToken);
     }
-    
+
     //Alejandro Rubens
     @Test
     void addCategory_response400() {
