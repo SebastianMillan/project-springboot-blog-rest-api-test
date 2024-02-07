@@ -1,14 +1,12 @@
 package com.springboot.blog.service.impl;
 
+
 import com.springboot.blog.entity.Comment;
 import com.springboot.blog.entity.Post;
 import com.springboot.blog.payload.CommentDto;
-import com.springboot.blog.payload.PostDto;
 import com.springboot.blog.repository.CommentRepository;
 import com.springboot.blog.repository.PostRepository;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -20,23 +18,24 @@ import java.util.Optional;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
-
+import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.any;
 @ExtendWith(MockitoExtension.class)
 class CommentServiceImplTest {
 
     @InjectMocks
-    private CommentServiceImpl commentService;
+    CommentServiceImpl commentService;
 
     @Mock
-    private CommentRepository commentRepository;
+    CommentRepository commentRepository;
 
     @Mock
-    private PostRepository postRepository;
+    PostRepository postRepository;
 
     @Mock
-    private ModelMapper modelMapper;
+    ModelMapper modelMapper;
+
 
     //Cristian Pulido
     @Test
@@ -83,8 +82,47 @@ class CommentServiceImplTest {
     void getCommentById() {
     }
 
+    //Alejandro Rubens
     @Test
     void updateComment() {
+        Post post = new Post();
+        Comment comment = new Comment();
+        comment.setId(1L);
+        comment.setPost(post);
+        comment.setName("nombre");
+        comment.setEmail("email@email.com");
+        comment.setBody("El cuerpo del comentario");
+        post.setId(1L);
+        post.setTitle("titulo");
+        post.setDescription("descripcion de los post");
+        post.setContent("contenido");
+        post.setComments(Set.of(comment));
+
+        postRepository.save(post);
+
+        CommentDto commentDto = new CommentDto();
+        commentDto.setId(comment.getId());
+        commentDto.setName(comment.getName());
+        commentDto.setEmail("emailCambiado@email.com");
+        commentDto.setBody(comment.getBody());
+
+
+        CommentDto expectedResult = new CommentDto();
+        expectedResult.setId(comment.getId());
+        expectedResult.setName(comment.getName());
+        expectedResult.setEmail("emailCambiado@email.com");
+        expectedResult.setBody(comment.getBody());
+
+        when(postRepository.findById(post.getId())).thenReturn(Optional.of(post));
+        when(commentRepository.findById(comment.getId())).thenReturn(Optional.of(comment));
+        when(postRepository.save(Mockito.any(Post.class))).thenAnswer(i -> i.getArguments()[0]);
+        when(modelMapper.map(eq(comment), eq(CommentDto.class))).thenReturn(expectedResult);
+
+        CommentDto result = commentService.updateComment(comment.getId(), post.getId(), expectedResult);
+
+        assertNotNull(result);
+        assertEquals(expectedResult, result);
+        assertNotEquals(comment.getEmail(), result.getEmail());
     }
 
     @Test

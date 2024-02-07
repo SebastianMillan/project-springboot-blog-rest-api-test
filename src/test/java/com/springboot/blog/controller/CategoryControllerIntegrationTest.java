@@ -27,7 +27,6 @@ import static org.junit.jupiter.api.Assertions.*;
 @ActiveProfiles("integration-test")
 @Sql(value = "classpath:data-integration.sql",executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 class CategoryControllerIntegrationTest {
-
     @LocalServerPort
     private int port;
     @Autowired
@@ -93,7 +92,7 @@ class CategoryControllerIntegrationTest {
         updatedCategoryDto.setName("Name");
         updatedCategoryDto.setDescription("Description");
     }
-
+    
     //Alejandro Rubens
     @Test
     void addCategory_response400() {
