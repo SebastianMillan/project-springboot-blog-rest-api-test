@@ -5,7 +5,7 @@ INSERT INTO posts (id, title, description, content, category_id) VALUES (1, 'Mi 
 INSERT INTO posts (id, title, description, content) VALUES (2, 'Receta Arroz', 'Tutorial avanzado para hacer arroz', 'Ingredientes y preparación');
 INSERT INTO posts (id, title, description, content) VALUES (3, 'Ejercicio gimnasio', 'Rutina de musculatura para gimnasio', 'Tablas y tiempos para hacer en el gimnasio');
 
-INSERT INTO comments (id, post_id, name, email, body) VALUES (1, 1, 'Sebastián', 'sebas@gmail.com', 'Me ha gustado la lectura de esta experiencia');
+INSERT INTO comments (id, post_id, name, email, body) VALUES (1, 1, 'Sebastian', 'sebas@gmail.com', 'Me ha gustado la lectura de esta experiencia');
 INSERT INTO comments (id, post_id, name, email, body) VALUES (2, 1, 'Christian', 'cristian@gmail.com', 'Intentaré hacerlo el año que viene');
 INSERT INTO comments (id, post_id, name, email, body) VALUES (3, 1, 'Alejandro', 'alejandro@gmail.com', 'Me ha encantado');
 INSERT INTO comments (id, post_id, name, email, body) VALUES (4, 2, 'Marco', 'marco@gmail.com', 'Una experiencia unica');
@@ -17,8 +17,8 @@ insert into users (id, name, username, email, password) values (4, 'Leonore', 'l
 insert into users (id, name, username, email, password) values (5, 'Brigit', 'bsanti4', 'bmatejic4@youku.com', '$2a$04$kZVI1yFE92tr3dQSJd6zze.tpvqPZv51HtV8BXcL3xHIOOqNpIVPK');
 insert into users (id, name, username, email, password) values (6, 'Shayne', 'slawden5', 'soaker5@addthis.com', '$2a$04$Qbni2vSWt9fHlT1YaXDnX.Gzpv9Wf2rdTDEvfR22rn4CeeWAHHC/i');
 
-INSERT INTO roles (id, name) VALUES(1, 'admin');
-INSERT INTO roles (id, name) VALUES(2, 'user');
+INSERT INTO roles (id, name) VALUES(1, 'ROLE_ADMIN');
+INSERT INTO roles (id, name) VALUES(2, 'ROLE_USER');
 
 INSERT INTO users_roles (role_id, user_id) VALUES (1, 1);
 INSERT INTO users_roles (role_id, user_id) VALUES (1, 2);

@@ -42,6 +42,6 @@ class CommentRepositoryTest {
         List<Comment> result = commentRepository.findByPostId(1L);
         assertFalse(result.isEmpty());
         assertEquals(result.size(), 3);
-        assertEquals(result.get(0).getName(), "Sebastián");
+        assertEquals(result.get(0).getName(), "Sebastian");
     }
 }

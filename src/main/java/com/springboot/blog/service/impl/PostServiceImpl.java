@@ -119,7 +119,7 @@ public class PostServiceImpl implements PostService {
     }
 
     // convert Entity into DTO
-    private PostDto mapToDTO(Post post){
+    protected PostDto mapToDTO(Post post){
         PostDto postDto = mapper.map(post, PostDto.class);
 //        PostDto postDto = new PostDto();
 //        postDto.setId(post.getId());
@@ -130,7 +130,7 @@ public class PostServiceImpl implements PostService {
     }
 
     // convert DTO to entity
-    private Post mapToEntity(PostDto postDto){
+    protected Post mapToEntity(PostDto postDto){
         Post post = mapper.map(postDto, Post.class);
 //        Post post = new Post();
 //        post.setTitle(postDto.getTitle());

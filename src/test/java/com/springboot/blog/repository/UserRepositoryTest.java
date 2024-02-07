@@ -107,7 +107,7 @@ class UserRepositoryTest {
         Assertions.assertThat(entityManager).isNotNull();
         Assertions.assertThat(userRepository).isNotNull();
 
-        boolean resultTrue = userRepository.existsByEmail("alejandro@gmail.com");
+        boolean resultTrue = userRepository.existsByEmail("loliva0@europa.eu");
 
         Assertions.assertThat(resultTrue).isNotNull();
         Assertions.assertThat(resultTrue).isTrue();

@@ -24,6 +24,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @Testcontainers
 @Sql(value = "classpath:insert-test.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @Sql(value = "classpath:delete-test.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+//Cristian Pulido entiry tests
 class RoleRepositoryTest {
 
     @Autowired
@@ -39,7 +40,7 @@ class RoleRepositoryTest {
     @Test
     void findByName() {
         Optional<Role> encontradofalse = repository.findByName("trabajador");
-        Optional<Role> encontradotrue = repository.findByName("admin");
+        Optional<Role> encontradotrue = repository.findByName("ROLE_ADMIN");
 
         assertTrue(encontradofalse.isEmpty(),"No se ha encontrado");
         assertTrue(encontradotrue.isPresent(),"Se ha encontrado");

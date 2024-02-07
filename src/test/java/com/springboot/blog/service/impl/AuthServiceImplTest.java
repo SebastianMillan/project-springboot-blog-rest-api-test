@@ -4,15 +4,24 @@ import com.springboot.blog.entity.Role;
 import com.springboot.blog.entity.User;
 import com.springboot.blog.exception.BlogAPIException;
 import com.springboot.blog.exception.ResourceNotFoundException;
+import com.springboot.blog.payload.LoginDto;
 import com.springboot.blog.payload.RegisterDto;
 import com.springboot.blog.repository.RoleRepository;
 import com.springboot.blog.repository.UserRepository;
+import com.springboot.blog.security.JwtTokenProvider;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Optional;
@@ -37,9 +46,42 @@ class AuthServiceImplTest {
     @Mock
     PasswordEncoder passwordEncoder;
 
+    @Mock
+    AuthenticationManager authenticationManager;
+
+    @Mock
+    JwtTokenProvider jwtTokenProvider;
+
+    //Marco Pertegal
     @Test
-    void login() {
+    void whenCorrectCredentialsThenReturnToken() {
+
+        LoginDto loginDto = new LoginDto("loliva0@europa.eu", "$2a$04$/Qpy.M7Xg3ksrC6MvKYHeOMbTkBEBmXYdOaERRVGLgm/0mIL1CP1.");
+        String token = "18c6dd9c77bfcc97e862001655abfba9";
+        Authentication authentication = new UsernamePasswordAuthenticationToken(loginDto.getUsernameOrEmail(), loginDto.getPassword());
+
+        Mockito.when(authenticationManager.authenticate(Mockito.any())).thenReturn(authentication);
+        Mockito.when(jwtTokenProvider.generateToken(authentication)).thenReturn(token);
+
+        String newToken = authService.login(loginDto);
+        assertEquals(token, newToken);
     }
+
+    //Marco Pertegal
+    @Test
+    void whenInvalidCredentialsThenThrowsAuthenticationException(){
+        LoginDto loginDto = new LoginDto("marco@gmail.eu", "$2a$04$/Qpy.M7Xg3ksrC6MvKYHeOMbTkBEBmXYdOaERRVGLgm/0mIL1CP1.");
+
+        Mockito.when(authenticationManager.authenticate(Mockito.any())).thenThrow(new AuthenticationCredentialsNotFoundException("Credentials not found"));
+
+        Exception exception = assertThrows(AuthenticationCredentialsNotFoundException.class,()->{
+            authService.login(loginDto);
+        });
+
+        assertEquals("Credentials not found", exception.getMessage());
+    }
+
+
 
     //Sebastián Millán
     @Test

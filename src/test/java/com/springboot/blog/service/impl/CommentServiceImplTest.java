@@ -1,14 +1,11 @@
 package com.springboot.blog.service.impl;
 
-import com.springboot.blog.entity.Category;
+
 import com.springboot.blog.entity.Comment;
 import com.springboot.blog.entity.Post;
-import com.springboot.blog.payload.CategoryDto;
 import com.springboot.blog.payload.CommentDto;
-import com.springboot.blog.repository.CategoryRepository;
 import com.springboot.blog.repository.CommentRepository;
 import com.springboot.blog.repository.PostRepository;
-import com.springboot.blog.service.CommentService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -23,7 +20,7 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
-
+import static org.mockito.ArgumentMatchers.any;
 @ExtendWith(MockitoExtension.class)
 class CommentServiceImplTest {
 
@@ -39,10 +36,44 @@ class CommentServiceImplTest {
     @Mock
     ModelMapper modelMapper;
 
+
+    //Cristian Pulido
     @Test
     void createComment() {
-    }
 
+        CommentDto commentDto = new CommentDto();
+        commentDto.setId(1L);
+        commentDto.setName("CommentName");
+        commentDto.setEmail("myemail@gmail.com");
+        commentDto.setBody("Nuevo Comentario");
+
+        Comment comment = new Comment();
+        comment.setId(1L);
+        comment.setBody("Nuevo Comentario");
+
+        Post post = Post.builder()
+                .id(1L)
+                .title("Nuevo")
+                .description("Nuevo")
+                .content("Nuevo")
+                .comments(Set.of(comment))
+                .category(null)
+                .build();
+
+        Mockito.when(postRepository.findById(commentDto.getId())).thenReturn(Optional.of(post));
+        Mockito.when(modelMapper.map(commentDto, Comment.class)).thenReturn(comment);
+        Mockito.when(commentRepository.save(Mockito.any(Comment.class))).thenReturn(comment);
+
+        CommentDto createdCommentDto = commentService.createComment(post.getId(), commentDto);
+
+        Mockito.verify(postRepository).findById(commentDto.getId());
+        Mockito.verify(commentRepository).save(any(Comment.class));
+
+        //Arreglar
+        assertEquals(comment.getId(), 1L);
+        assertEquals(comment.getBody(), "Nuevo Comentario");
+
+    }
     @Test
     void getCommentsByPostId() {
     }
