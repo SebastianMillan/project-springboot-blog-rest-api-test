@@ -7,6 +7,7 @@ import com.springboot.blog.entity.Role;
 import com.springboot.blog.entity.User;
 import com.springboot.blog.payload.CommentDto;
 import com.springboot.blog.payload.PostDto;
+import com.springboot.blog.payload.PostResponse;
 import com.springboot.blog.security.JwtTokenProvider;
 import com.springboot.blog.service.PostService;
 import com.springboot.blog.service.impl.PostServiceImpl;
@@ -20,6 +21,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.http.*;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -31,6 +37,14 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
+
+import java.util.List;
 import java.util.Set;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -57,6 +71,7 @@ class PostControllerIntegrationTest {
     private Long idPost;
     private Long notExistIdPost;
     private Long outIdPost;
+    private Long outIdCategory;
     private Long finalIdPost;
     private PostDto updatePostDto;
     private PostDto invalidPostDto;
@@ -66,6 +81,7 @@ class PostControllerIntegrationTest {
         idPost=1L;
         notExistIdPost=0L;
         outIdPost=101L;
+        outIdCategory=101L;
         finalIdPost=100L;
         invalidPostDto= new PostDto();
         updatePostDto= new PostDto();
@@ -134,8 +150,19 @@ class PostControllerIntegrationTest {
     }
 
 
+    //Marco Pertegal
+    //Post-getAllPos
     @Test
-    void getAllPosts() {
+    void whenFindAllPostThenReturn200() {
+        ResponseEntity<PostResponse> response = testRestTemplate.exchange("http://localhost:"+port+"/api/posts",
+                HttpMethod.GET,
+                new HttpEntity<>(userHeaders),
+                PostResponse.class);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertNotNull(response.getBody());
+        assertEquals(1L, response.getBody().getContent().get(0).getId());
+        assertEquals("Computer Systems Analyst I", response.getBody().getContent().get(0).getTitle());
+        assertEquals(10, response.getBody().getContent().size());
     }
 
     //Sebastián Millán
@@ -233,7 +260,31 @@ class PostControllerIntegrationTest {
         assertEquals(idPost,response.getBody().getId());
     }
 
+    //Marco Pertegal
+    //Post-getPostByCategory
     @Test
-    void getPostsByCategory() {
+    void whenCategoryIdFoundAndFoundPostsThenReturn200() {
+        Long categoryId = 1L;
+        ResponseEntity<List<PostDto>> response = testRestTemplate.exchange(
+                "http://localhost:" + port + "/api/posts/category/{id}",
+                HttpMethod.GET,
+                new HttpEntity<>(userHeaders),
+                new ParameterizedTypeReference<List<PostDto>>() {},
+                categoryId);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertNotNull(response.getBody());
+        assertEquals(8, response.getBody().get(0).getId());
+        assertEquals("Chief Design Engineer",response.getBody().get(0).getTitle());
+    }
+    //Marco Pertegal
+    //Post-getPostByCategory
+    @Test
+    void whenCategoryIdNotFoundThenReturnException() {
+        ResponseEntity<Object> response = testRestTemplate.exchange(
+                "http://localhost:" + port + "/api/posts/category/" + outIdCategory,
+                HttpMethod.GET,
+                new HttpEntity<>(userHeaders),
+                Object.class);
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 }

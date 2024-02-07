@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.*;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.http.client.*;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -43,6 +44,8 @@ class CategoryControllerIntegrationTest {
     private Long finalIdCategory;
     private Long outIdCategory;
     private Long zeroIdCategory;
+
+    private CategoryDto updatedCategoryDto;
 
     @BeforeEach
     void setUp(){
@@ -85,6 +88,9 @@ class CategoryControllerIntegrationTest {
         adminHeaders=new HttpHeaders();
         adminHeaders.setContentType(MediaType.APPLICATION_JSON);
         adminHeaders.setBearerAuth(adminToken);
+        updatedCategoryDto = new CategoryDto();
+        updatedCategoryDto.setName("Name");
+        updatedCategoryDto.setDescription("Description");
     }
     
     //Alejandro Rubens
@@ -118,9 +124,48 @@ class CategoryControllerIntegrationTest {
         assertNotNull(response.getBody());
     }
 
+    //Marco Pertegal
+    //Category-updateCategory
     @Test
-    void updateCategory() {
+    void whenCategoryIdFoundAndCategoryDtoIsValidThenReturn200() {
+        ResponseEntity<CategoryDto> response = testRestTemplate.exchange(
+                "http://localhost:" + port + "/api/v1/categories/" + idCategory,
+                HttpMethod.PUT,
+                new HttpEntity<>(updatedCategoryDto, adminHeaders),
+                CategoryDto.class);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertNotNull(response.getBody());
+        assertEquals(idCategory,response.getBody().getId());
+        assertEquals(updatedCategoryDto.getName(), response.getBody().getName());
+
+
     }
+
+    //Marco Pertegal
+    //Category-updateCategory
+    @Test
+    void whenCategoryIdNotFoundAndCategoryDtoIsValidThenReturn404() {
+        ResponseEntity<CategoryDto> response = testRestTemplate.exchange(
+                "http://localhost:"+port+"/api/v1/categories" + outIdCategory,
+                HttpMethod.PUT,
+                new HttpEntity<>(updatedCategoryDto,adminHeaders),
+                CategoryDto.class);
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+    }
+
+    //Marco Pertegal
+    //Category-updateCategory
+    @Test
+    void whenHasRoleUserThenReturn401() {
+        ResponseEntity<CategoryDto> response = testRestTemplate.exchange(
+                "http://localhost:"+port+"/api/v1/categories/" + idCategory,
+                HttpMethod.PUT,
+                new HttpEntity<>(updatedCategoryDto,userHeaders),
+                CategoryDto.class);
+        assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
+    }
+
+
 
     //Cristian Pulido
     @Test

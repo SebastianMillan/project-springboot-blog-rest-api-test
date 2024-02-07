@@ -6,6 +6,7 @@ import com.springboot.blog.payload.CommentDto;
 import com.springboot.blog.payload.PostDto;
 import com.springboot.blog.security.JwtTokenProvider;
 import io.jsonwebtoken.lang.Collections;
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,7 @@ class CommentControllerIntegrationTest {
     private Long idComment;
     private Long finalIdPost;
     private Long outIdPost;
+    private Long outIdComment;
     private Long zeroIdPost;
     private Long notHasIdComment;
     private Long finalIdComment;
@@ -54,6 +56,7 @@ class CommentControllerIntegrationTest {
         idComment=58L;
         finalIdPost=100L;
         outIdPost=101L;
+        outIdComment = 101L;
         zeroIdPost=0L;
         notHasIdComment=200L;
         finalIdComment=13L;
@@ -246,7 +249,60 @@ class CommentControllerIntegrationTest {
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
     }
 
+    //Marco Pertegal
+    //Comment-deleteComment
     @Test
-    void deleteComment() {
+    void whenIdPostFoundAndIdIdCommentFoundAndCommentBelongsToThePostThenReturnString() {
+        ResponseEntity<String> response = testRestTemplate.exchange("http://localhost:"+port+"/api/v1/posts/"+idPost+"/comments/"+idComment,
+                HttpMethod.DELETE,
+                new HttpEntity<>(adminHeaders),
+                String.class);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals("Comment deleted successfully", response.getBody());
     }
+
+    //Marco Pertegal
+    //Comment-deleteComment
+    @Test
+    void whenIdPostNotFoundAndIdCommentFoundAndCommentBelongsToThePostThenReturnException() {
+        ResponseEntity<String> response = testRestTemplate.exchange("http://localhost:"+port+"/api/v1/posts/"+outIdPost+"/comments/"+idComment,
+                HttpMethod.DELETE,
+                new HttpEntity<>(adminHeaders),
+                String.class);
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+    }
+
+    //Marco Pertegal
+    //Comment-deleteComment
+    @Test
+    void whenIdPostFoundAndIdCommentNotFoundAndCommentBelongsToThePostThenReturnException() {
+        ResponseEntity<String> response = testRestTemplate.exchange("http://localhost:"+port+"/api/v1/posts/"+idPost+"/comments/"+outIdComment,
+                HttpMethod.DELETE,
+                new HttpEntity<>(adminHeaders),
+                String.class);
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+    }
+
+    //Marco Pertegal
+    //Comment-deleteComment
+    @Test
+    void whenCommentDoesNotBelongsToThePostThenReturnException() {
+        Long invalidIdPost = 2L;
+
+        ResponseEntity<String> response = testRestTemplate.exchange("http://localhost:"+port+"/api/v1/posts/"+invalidIdPost+"/comments/"+idComment,
+                HttpMethod.DELETE,
+                new HttpEntity<>(adminHeaders),
+                String.class);
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        String responseBody = response.getBody();
+
+        int startIndex = responseBody.indexOf("\"message\":\"") + 11;
+        int endIndex = responseBody.indexOf("\"", startIndex);
+        String message = responseBody.substring(startIndex, endIndex);
+        message = message.replace("\\", "");
+        assertEquals("Comment does not belongs to post", message);
+
+    }
+
+
 }
