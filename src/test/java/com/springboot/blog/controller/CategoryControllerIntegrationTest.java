@@ -86,9 +86,23 @@ class CategoryControllerIntegrationTest {
         adminHeaders.setContentType(MediaType.APPLICATION_JSON);
         adminHeaders.setBearerAuth(adminToken);
     }
-
+    
+    //Alejandro Rubens
     @Test
-    void addCategory() {
+    void addCategory_response400() {
+        ResponseEntity<CategoryDto> response = testRestTemplate.exchange("http://localhost:"+port+"/api/v1/categories",
+                HttpMethod.POST,new HttpEntity<>(adminHeaders), CategoryDto.class);
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+    }
+
+    //Alejandro Rubens
+    @Test
+    void addCategory_response201() {
+        CategoryDto categoryDto = new CategoryDto(13L, "nombre", "descripcion");
+        ResponseEntity<CategoryDto> response = testRestTemplate.exchange("http://localhost:"+port+"/api/v1/categories",
+                HttpMethod.POST, new HttpEntity<>(categoryDto, adminHeaders), CategoryDto.class);
+        System.out.println(response);
+        assertEquals(HttpStatus.CREATED, response.getStatusCode());
     }
 
     // Cristian Pulido

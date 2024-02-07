@@ -44,6 +44,7 @@ class AuthControllerIntegrationTest {
     private LoginDto notRegisterLoginDto;
 
     private RegisterDto registerDto;
+    String response;
 
     @BeforeEach
     void setUp(){
@@ -51,6 +52,7 @@ class AuthControllerIntegrationTest {
         loginDto= new LoginDto("wbahls2r","sQ0|KHKUN$I|/*");
         notRegisterLoginDto = new LoginDto("username", "pass");
         registerDto = new RegisterDto("name", "username", "email@email.com", "securepassword");
+
 
 
         User user = new User(1L,"Micah Eakle","meakle0","meakle0@newsvine.com", "kJ3(1SY6uMM", Set.of(new Role((short)1,"ADMIN")));
@@ -82,8 +84,10 @@ class AuthControllerIntegrationTest {
     //Alejandro Rubens
     @Test
     void register() {
-        ResponseEntity<JWTAuthResponse> response = testRestTemplate.postForEntity("http://localhost:"+port+"/api/auth/register",
-                new HttpEntity<>(registerDto ,adminHeaders), JWTAuthResponse.class);
+        HttpHeaders registerHeaders = new HttpHeaders();
+        registerHeaders.setContentType(MediaType.APPLICATION_JSON);
+        ResponseEntity<String> response = testRestTemplate.postForEntity("http://localhost:"+port+"/api/auth/register",
+                new HttpEntity<>(registerDto ,registerHeaders), String.class);
         System.out.println(response);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertNotNull(response.getBody());

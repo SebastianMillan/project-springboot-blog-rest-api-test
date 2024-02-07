@@ -1,8 +1,8 @@
 package com.springboot.blog.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.springboot.blog.exception.ResourceNotFoundException;
 import com.springboot.blog.payload.PostDto;
+import com.springboot.blog.exception.ResourceNotFoundException;
 import com.springboot.blog.payload.PostResponse;
 import com.springboot.blog.entity.Category;
 import com.springboot.blog.payload.CommentDto;
@@ -21,15 +21,11 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-
 import java.util.List;
-
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
 import java.util.Set;
-
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -52,6 +48,9 @@ class PostControllerTest {
 
     @InjectMocks
     private PostController postController;
+
+    @MockBean
+    private PostService categoryService;
 
     @Mock
     CategoryRepository categoryRepository;
@@ -110,6 +109,7 @@ class PostControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated());
+
     }
 
     //Marco Pertegal
