@@ -1,6 +1,7 @@
 com\springboot\blog\controller\CategoryControllerIntegrationTest.class
 com\springboot\blog\repository\PostRepositoryTest.class
 com\springboot\blog\controller\AuthControllerTest.class
+com\springboot\blog\controller\PostControllerIntegrationTest$1.class
 com\springboot\blog\service\impl\AuthServiceImplTest.class
 com\springboot\blog\SpringbootBlogRestApiApplicationTests.class
 com\springboot\blog\repository\UserRepositoryTest.class

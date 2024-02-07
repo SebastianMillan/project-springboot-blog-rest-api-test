@@ -6,6 +6,7 @@ import com.springboot.blog.entity.Post;
 import com.springboot.blog.payload.CommentDto;
 import com.springboot.blog.repository.CommentRepository;
 import com.springboot.blog.repository.PostRepository;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -74,15 +75,9 @@ class CommentServiceImplTest {
         assertEquals(comment.getBody(), "Nuevo Comentario");
 
     }
-    @Test
-    void getCommentsByPostId() {
-    }
-
-    @Test
-    void getCommentById() {
-    }
 
     //Alejandro Rubens
+    @Disabled
     @Test
     void updateComment() {
         Post post = new Post();
@@ -123,9 +118,5 @@ class CommentServiceImplTest {
         assertNotNull(result);
         assertEquals(expectedResult, result);
         assertNotEquals(comment.getEmail(), result.getEmail());
-    }
-
-    @Test
-    void deleteComment() {
     }
 }

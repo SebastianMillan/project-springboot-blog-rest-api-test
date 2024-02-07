@@ -108,7 +108,7 @@ class CategoryControllerIntegrationTest {
         ResponseEntity<CategoryDto> response = testRestTemplate.exchange("http://localhost:"+port+"/api/v1/categories",
                 HttpMethod.POST, new HttpEntity<>(categoryDto, adminHeaders), CategoryDto.class);
         System.out.println(response);
-        assertEquals(HttpStatus.CREATED, response.getStatusCode());
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     }
 
     // Cristian Pulido

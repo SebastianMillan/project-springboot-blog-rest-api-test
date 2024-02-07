@@ -141,9 +141,5 @@ class AuthServiceImplTest {
         verify(roleRepository,times(1)).findByName(roleName);
         verify(userRepository, times(1)).save(Mockito.any());
         verifyNoMoreInteractions(userRepository);
-
-
-
-
     }
 }

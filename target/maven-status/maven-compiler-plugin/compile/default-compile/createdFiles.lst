@@ -31,6 +31,7 @@ com\springboot\blog\service\CommentService.class
 com\springboot\blog\payload\ErrorDetails.class
 com\springboot\blog\payload\PostResponse.class
 com\springboot\blog\service\PostService.class
+com\springboot\blog\entity\Post$PostBuilder.class
 com\springboot\blog\exception\BlogAPIException.class
 com\springboot\blog\entity\Role.class
 com\springboot\blog\service\impl\CommentServiceImpl.class

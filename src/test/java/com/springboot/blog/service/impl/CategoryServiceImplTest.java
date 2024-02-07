@@ -80,14 +80,6 @@ class CategoryServiceImplTest {
     }
 
 
-    @Test
-    void getCategory() {
-    }
-
-    @Test
-    void getAllCategories() {
-    }
-
     //Sebastián Millán
     @Test
     void whenCategoryDtoAndCategoryIdIsPresent_thenUpdateCategoryAndTransformToDto() {
@@ -131,7 +123,4 @@ class CategoryServiceImplTest {
         verifyNoMoreInteractions(categoryRepository);
     }
 
-    @Test
-    void deleteCategory() {
-    }
 }

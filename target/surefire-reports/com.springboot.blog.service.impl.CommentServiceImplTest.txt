@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.springboot.blog.service.impl.CommentServiceImplTest
 -------------------------------------------------------------------------------
-Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.153 s -- in com.springboot.blog.service.impl.CommentServiceImplTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 1, Time elapsed: 0.222 s -- in com.springboot.blog.service.impl.CommentServiceImplTest

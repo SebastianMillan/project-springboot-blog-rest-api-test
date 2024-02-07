@@ -41,21 +41,14 @@ class PostControllerTest {
     @MockBean
     private PostService postService;
     @InjectMocks
-    private PostController commentController;
-
-    private Long idPost;
-    private Long idCategory;
-
-    @InjectMocks
     private PostController postController;
-
-    @MockBean
-    private PostService categoryService;
 
     @Mock
     CategoryRepository categoryRepository;
 
     private PostDto postDto;
+    private Long idPost;
+    private Long idCategory;
 
     @BeforeEach
     public void setUp(){
